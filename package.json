@@ -1,9 +1,6 @@
 {
   "dependencies": {
     "body-parser": "^1.19.1",
-    "eslint": "^8.8.0",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.25.4",
     "express": "^4.17.2",
     "mongoose": "^6.2.0"
   },
@@ -13,6 +10,9 @@
     "lint": "npx eslint."
   },
   "devDependencies": {
+    "eslint": "^8.8.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.4",
     "nodemon": "^2.0.15",
     "prettier": "^2.5.1"
   }
