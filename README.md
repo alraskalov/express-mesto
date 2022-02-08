@@ -8,12 +8,12 @@
 
 ## Функциональность
 
-`GET /users` — возвращает всех пользователей из базы
+`GET /users` — возвращает всех пользователей из базы⋅⋅
 `GET /users/:userId` - возвращает пользователя по _id
 `GET /cards` — возвращает все карточки из базы
 `POST /cards` — создаёт карточку с переданными в теле запроса name и link
 `PATCH /users/me` — обновляет профиль
-`PATCH /users/me/avatar` — обновляет аватар  
+`PATCH /users/me/avatar` — обновляет аватар
 `PUT /cards/:cardId/likes` — поставить лайк карточке
 `DELETE /cards/:cardId/likes` — убрать лайк с карточки
 `DELETE /cards/:cardId` — удаляет карточку по _id
