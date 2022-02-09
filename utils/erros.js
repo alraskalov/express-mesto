@@ -3,10 +3,10 @@ const castErrorCode = 400;
 const serverErrorCode = 500;
 
 const checkError = (err, res) => {
-  if (err.statusCode === 404) {
+  if (err.name === 'ValidationError') {
     res
       .status(ValidationErrorCode)
-      .send({ message: 'Нет данных по переданному id' });
+      .send({ message: 'Отправленные данные неверны' });
   } else if (err.name === 'CastError') {
     res
       .status(castErrorCode)
