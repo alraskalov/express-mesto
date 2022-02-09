@@ -23,6 +23,8 @@ app.use('/users', require('./routes/users'));
 
 app.use('/cards', require('./routes/cards'));
 
-app.listen(PORT, () => {
-  // console.log('123');
+app.use((req, res) => {
+  res.status(404).send({ message: 'Запрашиваемый ресурс не существует' });
 });
+
+app.listen(PORT, () => {});

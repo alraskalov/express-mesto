@@ -9,7 +9,13 @@ module.exports.getCards = (req, res) => {
 
 module.exports.deleteCard = (req, res) => {
   Card.findByIdAndRemove(req.params.cardId)
-    .then((card) => res.send({ data: card }))
+    .then((card) => {
+      if (!card) {
+        res.status(404).send({ messgae: 'Нет данных по переданному id' });
+      } else {
+        res.send({ data: card });
+      }
+    })
     .catch((err) => checkError(err, res));
 };
 
@@ -25,7 +31,15 @@ module.exports.likeCard = (req, res) => {
     req.params.cardId,
     { $addToSet: { likes: req.user._id } },
     { new: true },
-  ).catch((err) => checkError(err, res));
+  )
+    .then((card) => {
+      if (!card) {
+        res.status(404).send({ messgae: 'Нет данных по переданному id' });
+      } else {
+        res.send({ data: card });
+      }
+    })
+    .catch((err) => checkError(err, res));
 };
 
 module.exports.dislikeCard = (req, res) => {
@@ -33,5 +47,13 @@ module.exports.dislikeCard = (req, res) => {
     req.params.cardId,
     { $pull: { likes: req.user._id } },
     { new: true },
-  ).catch((err) => checkError(err, res));
+  )
+    .then((card) => {
+      if (!card) {
+        res.status(404).send({ messgae: 'Нет данных по переданному id' });
+      } else {
+        res.send({ data: card });
+      }
+    })
+    .catch((err) => checkError(err, res));
 };

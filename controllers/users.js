@@ -9,7 +9,13 @@ module.exports.getUsers = (req, res) => {
 
 module.exports.getSpecificUser = (req, res) => {
   User.findById(req.params.userId)
-    .then((user) => res.send({ data: user }))
+    .then((user) => {
+      if (!user) {
+        res.status(404).send({ messgae: 'Нет данных по переданному id' });
+      } else {
+        res.send({ data: user });
+      }
+    })
     .catch((err) => checkError(err, res));
 };
 module.exports.createUser = (req, res) => {
@@ -28,10 +34,15 @@ module.exports.updateUserProfile = (req, res) => {
     {
       new: true,
       runValidators: true,
-      upsert: true,
     },
   )
-    .then((user) => res.send({ data: user }))
+    .then((user) => {
+      if (!user) {
+        res.status(404).send({ messgae: 'Нет данных по переданному id' });
+      } else {
+        res.send({ data: user });
+      }
+    })
     .catch((err) => checkError(err, res));
 };
 
@@ -44,9 +55,14 @@ module.exports.updateUserAvatar = (req, res) => {
     {
       new: true,
       runValidators: true,
-      upsert: true,
     },
   )
-    .then((user) => res.send({ data: user }))
+    .then((user) => {
+      if (!user) {
+        res.status(404).send({ messgae: 'Нет данных по переданному id' });
+      } else {
+        res.send({ data: user });
+      }
+    })
     .catch((err) => checkError(err, res));
 };
