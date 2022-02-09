@@ -1,4 +1,4 @@
-const ValidationErrorCode = 404;
+const ValidationErrorCode = 400;
 const castErrorCode = 400;
 const serverErrorCode = 500;
 
