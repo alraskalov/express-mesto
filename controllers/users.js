@@ -34,18 +34,6 @@ module.exports.getUserMe = (req, res, next) => {
     .catch(next);
 };
 
-module.exports.getSpecificUser = (req, res, next) => {
-  User.findById(req.params.userId)
-    .then((user) => {
-      if (!user) {
-        throw new NotFoundError('Нет данных по переданному id');
-      } else {
-        res.status(200).send({ data: user });
-      }
-    })
-    .catch(next);
-};
-
 module.exports.createUser = async (req, res, next) => {
   const {
     name, about, avatar, email, password,
@@ -60,7 +48,7 @@ module.exports.createUser = async (req, res, next) => {
   })
     .then((user) => res.status(200).send({ _id: user.id, email: user.email }))
     .catch((err) => {
-      if (err.name === 'MongoError') {
+      if (err.code === 11000) {
         next(new ConflictError('Пользователь с таким email уже зарегестрирован'));
       }
       next(err);

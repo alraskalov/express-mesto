@@ -1,6 +1,6 @@
 const Card = require('../models/card');
 const ForbiddenError = require('../errors/ForbiddenError');
-const BadRequestError = require('../errors/BadRequestError');
+const ValidationError = require('../errors/ValidationError');
 const NotFoundError = require('../errors/NotFoundError');
 
 module.exports.getCards = (req, res, next) => {
@@ -31,8 +31,8 @@ module.exports.createCard = (req, res, next) => {
   Card.create({ name, link, owner: req.user._id })
     .then((card) => res.status(200).send({ data: card }))
     .catch((err) => {
-      if (err.name === 'BadRequestError') {
-        next(new BadRequestError('Некорректный URL'));
+      if (err.name === 'ValidationError') {
+        next(new ValidationError('Некорректный URL'));
       }
       next(err);
     });
