@@ -5,7 +5,7 @@ const NotFoundError = require('../errors/NotFoundError');
 
 module.exports.getCards = (req, res, next) => {
   Card.find({})
-    .then((cards) => res.send({ data: cards }))
+    .then((cards) => res.send(cards.reverse()))
     .catch(next);
 };
 
@@ -19,7 +19,7 @@ module.exports.deleteCard = async (req, res, next) => {
       }
       Card.findByIdAndRemove({ _id: cardObject._id })
         .then((card) => {
-          res.status(200).send({ data: card });
+          res.status(200).send(card);
         })
         .catch(next);
     })
@@ -29,7 +29,7 @@ module.exports.deleteCard = async (req, res, next) => {
 module.exports.createCard = (req, res, next) => {
   const { name, link } = req.body;
   Card.create({ name, link, owner: req.user._id })
-    .then((card) => res.status(200).send({ data: card }))
+    .then((card) => res.status(200).send(card))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new ValidationError('Некорректный URL'));
@@ -48,7 +48,7 @@ module.exports.likeCard = (req, res, next) => {
       if (!card) {
         throw new NotFoundError('Нет данных по переданному id');
       } else {
-        res.status(200).send({ data: card });
+        res.status(200).send(card);
       }
     })
     .catch(next);
@@ -64,7 +64,7 @@ module.exports.dislikeCard = (req, res, next) => {
       if (!card) {
         throw new NotFoundError('Нет данных по переданному id');
       } else {
-        res.status(200).send({ data: card });
+        res.status(200).send(card);
       }
     })
     .catch(next);

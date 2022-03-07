@@ -6,7 +6,7 @@ const NotFoundError = require('../errors/NotFoundError');
 
 module.exports.getUsers = (req, res, next) => {
   User.find({})
-    .then((users) => res.status(200).send({ data: users }))
+    .then((users) => res.status(200).send(users))
     .catch(next);
 };
 
@@ -16,7 +16,7 @@ module.exports.getSpecificUser = (req, res, next) => {
       if (!user) {
         throw new NotFoundError('Нет данных по переданному id');
       } else {
-        res.status(200).send({ data: user });
+        res.status(200).send(user);
       }
     })
     .catch(next);
@@ -28,7 +28,7 @@ module.exports.getUserMe = (req, res, next) => {
       if (!user) {
         throw new NotFoundError('Нет данных по переданному id');
       } else {
-        res.status(200).send({ data: user });
+        res.status(200).send(user);
       }
     })
     .catch(next);
@@ -57,6 +57,7 @@ module.exports.createUser = async (req, res, next) => {
 
 module.exports.updateUserProfile = (req, res, next) => {
   const { name, about } = req.body;
+
   User.findByIdAndUpdate(
     req.user._id,
     { name, about },
@@ -69,7 +70,7 @@ module.exports.updateUserProfile = (req, res, next) => {
       if (!user) {
         throw new NotFoundError({ messgae: 'Нет данных по переданному id' });
       } else {
-        res.status(200).send({ data: user });
+        res.status(200).send(user);
       }
     })
     .catch(next);
@@ -90,7 +91,7 @@ module.exports.updateUserAvatar = (req, res, next) => {
       if (!user) {
         throw new NotFoundError({ messgae: 'Нет данных по переданному id' });
       } else {
-        res.status(200).send({ data: user });
+        res.status(200).send(user);
       }
     })
     .catch(next);
