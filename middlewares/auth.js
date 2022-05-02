@@ -15,7 +15,7 @@ module.exports.auth = (req, res, next) => {
   let payload;
 
   try {
-    payload = jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : 'super-strong-secret');
+    payload = jwt.verify(token, NODE_ENV === 'production' ? `${JWT_SECRET}` : 'super-strong-secret');
   } catch (err) {
     throw new AuthError('Необходима авторизация');
   }
